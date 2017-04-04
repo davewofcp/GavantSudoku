@@ -18,8 +18,6 @@ public class FindNakedPairs extends AbstractStep {
 	}
 
 	public int perform() {
-		if (!enabled) return 0;
-		
 		int found = 0;
 		boolean foundLastPass = true;
 		

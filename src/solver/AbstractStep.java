@@ -13,6 +13,10 @@ public abstract class AbstractStep {
 		this.enabled = enabled;
 	}
 	
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+	
 	public void setGrid(Grid grid) {
 		this.grid = grid;
 	}

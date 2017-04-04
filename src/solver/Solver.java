@@ -77,6 +77,7 @@ public class Solver {
 			}
 			
 			for (AbstractStep step : steps) {
+				if (!step.isEnabled()) continue;
 				if ((lastFound = step.perform()) > 0) {
 					lastStep = step.getName();
 					this.counter++;

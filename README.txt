@@ -28,8 +28,7 @@ modifying it.
 
 Simply write a class that extends solver.AbstractStep and place it in the package
 "extensions.steps". These will be automatically loaded and run if the included steps fail
-to find anything. The perform() method must return how many numbers were found or 0 if the
-step has been disabled.
+to find anything. The perform() method must return how many numbers were found.
 
 GUI and flow control extensions can also be added. They must extend extensions.AbstractGui
 and extensions.AbstractController, respectively, and be placed in the packages
