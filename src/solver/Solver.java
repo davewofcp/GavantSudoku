@@ -55,11 +55,10 @@ public class Solver {
 		return counter;
 	}
 	
-	public int solve() {
+	public boolean solve() {
 		// Place candidates
 		placeCandidates.place();
 		
-		int totalFound = 0;
 		String lastStep = "Init";
 		int lastFound = 0;
 		
@@ -71,7 +70,7 @@ public class Solver {
 			ExtensionHandler.pauseAll(controllers);
 			
 			if (grid.isSolved()) {
-				break;
+				return true;
 			}
 			
 			for (AbstractStep step : steps) {
@@ -79,7 +78,6 @@ public class Solver {
 				if ((lastFound = step.perform()) > 0) {
 					lastStep = step.getName();
 					this.counter++;
-					totalFound += lastFound;
 					ExtensionHandler.refreshAll(guis);
 					ExtensionHandler.pauseAll(controllers);
 					continue main;
@@ -100,6 +98,6 @@ public class Solver {
 			break;
 		}
 
-		return totalFound;
+		return false;
 	}
 }

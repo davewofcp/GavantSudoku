@@ -34,10 +34,10 @@ public class SudokuSolver {
 		}
 		
 		Solver solver = new Solver(grid);
-		int found = solver.solve();
+		boolean solved = solver.solve();
 		
-		if (!grid.isSolved()) {
-			System.out.println("Unable to solve that puzzle; found "+found+" numbers. Saving partial solution to "+partialOutputFile);
+		if (!solved) {
+			System.out.println("Unable to solve that puzzle. Saving partial solution to "+partialOutputFile);
 			try {
 				grid.writeToFile(partialOutputFile);
 			} catch (IOException e) {
@@ -54,7 +54,7 @@ public class SudokuSolver {
 				System.out.println(e.getMessage());
 				System.exit(0);
 			}
-			System.out.println("Puzzle solved and saved to "+outputFile+"; found all "+found+" numbers.");
+			System.out.println("Puzzle solved and saved to "+outputFile);
 		}
 	}
 
