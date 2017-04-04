@@ -7,8 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import solver.Constants;
-
 public class Grid {
 	private Nonet[][] nonets;
 	

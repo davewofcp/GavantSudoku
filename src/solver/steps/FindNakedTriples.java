@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import model.Constants;
 import model.Coords;
 import model.Grid;
 import solver.AbstractStep;
-import solver.Constants;
 
 public class FindNakedTriples extends AbstractStep {
 	private HashMap<Constants.SetType,HashMap<Integer,ArrayList<Coords>>> found;

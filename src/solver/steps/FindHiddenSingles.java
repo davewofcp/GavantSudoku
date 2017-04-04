@@ -3,10 +3,10 @@ package solver.steps;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import model.Constants;
 import model.Coords;
 import model.Grid;
 import solver.AbstractStep;
-import solver.Constants;
 
 public class FindHiddenSingles extends AbstractStep {
 	public FindHiddenSingles(Grid grid) {
