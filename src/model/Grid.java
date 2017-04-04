@@ -137,18 +137,6 @@ public class Grid {
 			}
 		}
 		
-		// return true if we have a pointing pair of candidates in a nonet
-		/*for (int i = 0; i < 3; i++) {
-			int count = 0;
-			for (int j = 0; j < 3; j++) {
-				if ((y / 3) == i) continue; // don't count candidates from that nonet
-				if (nonets[x / 3][i].hasCandidate(x - ((x / 3) * 3), j, c)) {
-					count++;
-				}
-			}
-			if (count > 1) return true;
-		}*/
-		
 		return false;
 	}
 	
@@ -165,18 +153,6 @@ public class Grid {
 				if (nonets[i][y / 3].getValue(j, y - ((y / 3) * 3)) == c) return true;
 			}
 		}
-		
-		// return true if we have a pointing pair of candidates in a nonet
-		/*for (int i = 0; i < 3; i++) {
-			int count = 0;
-			for (int j = 0; j < 3; j++) {
-				if ((x / 3) == i) continue; // don't count candidates from that nonet
-				if (nonets[i][y / 3].hasCandidate(j, y - ((y / 3) * 3), c)) {
-					count++;
-				}
-			}
-			if (count > 1) return true;
-		}*/
 		
 		return false;
 	}
@@ -264,67 +240,25 @@ public class Grid {
 	}
 	
 	public void validate(String lastStep, int lastFound) {
-		// Validate nonets
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
+		for (Constants.SetType setType : Constants.SetType.values()) {
+			for (int i = 0; i < 9; i++) {
+				ArrayList<Coords> cellSet = makeCellSet(setType, i);
 				String allNumbers = "123456789";
-				for (int k = 0; k < 3; k++) {
-					for (int l = 0; l < 3; l++) {
-						char thisChar = nonets[i][j].getValue(k, l);
-						if (thisChar == 0) continue;
-						int chrPos = allNumbers.indexOf(thisChar);
-						if (chrPos == -1) {
-							System.out.println("[VALIDATE] Nonet ("+i+","+j+") has 2 values of "+thisChar);
-							System.out.println("[DEBUG] Last step performed was \""+lastStep+"\", which found "+lastFound+" cells.");
-							try {
-								writeToFile("validate.err");
-							} catch (IOException e) {
-							}
-							System.exit(0);
+				for (Coords cell : cellSet) {
+					char c = getValue(cell.getX(),cell.getY());
+					if (c == 0) continue;
+					int chrPos = allNumbers.indexOf(c);
+					if (chrPos == -1) {
+						System.out.println("[VALIDATE] "+setType.toString()+" "+i+" has 2 values of "+c);
+						System.out.println("[DEBUG] Last step performed was \""+lastStep+"\", which found "+lastFound+" values.");
+						try {
+							writeToFile("validate.err");
+						} catch (IOException e) {
 						}
-						allNumbers = allNumbers.substring(0, chrPos) + allNumbers.substring(chrPos + 1, allNumbers.length());
+						System.exit(0);						
 					}
+					allNumbers = allNumbers.substring(0,chrPos) + allNumbers.substring(chrPos + 1,allNumbers.length());
 				}
-			}
-		}
-		
-		// Validate columns
-		for (int i = 0; i < 9; i++) {
-			String allNumbers = "123456789";
-			for (int j = 0; j < 9; j++) {
-				char thisChar = getValue(i,j);
-				if (thisChar == 0) continue;
-				int chrPos = allNumbers.indexOf(thisChar);
-				if (chrPos == -1) {
-					System.out.println("[VALIDATE] Column ("+i+") has 2 values of "+thisChar);
-					System.out.println("[DEBUG] Last step performed was \""+lastStep+"\", which found "+lastFound+" cells.");
-					try {
-						writeToFile("validate.err");
-					} catch (IOException e) {
-					}
-					System.exit(0);
-				}
-				allNumbers = allNumbers.substring(0, chrPos) + allNumbers.substring(chrPos + 1, allNumbers.length());
-			}
-		}
-		
-		// Validate rows
-		for (int i = 0; i < 9; i++) {
-			String allNumbers = "123456789";
-			for (int j = 0; j < 9; j++) {
-				char thisChar = getValue(j,i);
-				if (thisChar == 0) continue;
-				int chrPos = allNumbers.indexOf(thisChar);
-				if (chrPos == -1) {
-					System.out.println("[VALIDATE] Row ("+j+") has 2 values of "+thisChar);
-					System.out.println("[DEBUG] Last step performed was \""+lastStep+"\", which found "+lastFound+" cells.");
-					try {
-						writeToFile("validate.err");
-					} catch (IOException e) {
-					}
-					System.exit(0);
-				}
-				allNumbers = allNumbers.substring(0, chrPos) + allNumbers.substring(chrPos + 1, allNumbers.length());
 			}
 		}
 	}
