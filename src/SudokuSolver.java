@@ -1,6 +1,4 @@
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Scanner;
 
 import model.Grid;
@@ -17,7 +15,6 @@ public class SudokuSolver {
 			System.exit(0);
 		}
 		
-		File file = new File(filename);
 		int extPos = filename.lastIndexOf('.');
 		if (extPos == -1) extPos = filename.length();
 

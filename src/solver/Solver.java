@@ -13,7 +13,6 @@ import solver.steps.FindSolvedCells;
 
 public class Solver {
 	private Grid grid;
-	private boolean solved = false;
 	private int counter = 0;
 	
 	private PlaceCandidates placeCandidates;
@@ -72,7 +71,6 @@ public class Solver {
 			ExtensionHandler.pauseAll(controllers);
 			
 			if (grid.isSolved()) {
-				solved = true;
 				break;
 			}
 			
