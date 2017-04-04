@@ -1,7 +1,6 @@
 package solver.steps;
 
 import model.Grid;
-import model.Nonet;
 import solver.AbstractStep;
 
 public class FindSolvedCells extends AbstractStep {
@@ -19,19 +18,15 @@ public class FindSolvedCells extends AbstractStep {
 		
 		while (foundLastPass) {
 			foundLastPass = false;
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					Nonet thisNonet = grid.getNonet(i, j);
-					for (int k = 0; k < 3; k++) {
-						for (int l = 0; l < 3; l++) {
-							char[] candidates = thisNonet.getCandidates(k, l);
-							if (candidates != null && candidates.length == 1) {
-								foundLastPass = true;
-								thisNonet.setValue(k, l, candidates[0]);
-								found++;
-								grid.removeCandidates((i * 3) + k, (j * 3) + l, candidates[0]);
-							}
-						}
+			
+			for (int x = 0; x < 9; x++) {
+				for (int y = 0; y < 9; y++) {
+					char[] candidates = grid.getCandidates(x, y);
+					if (candidates != null && candidates.length == 1) {
+						foundLastPass = true;
+						found++;
+						grid.setValue(x, y, candidates[0]);
+						grid.removeCandidates(x, y, candidates[0]);
 					}
 				}
 			}

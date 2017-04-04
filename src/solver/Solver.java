@@ -56,7 +56,6 @@ public class Solver {
 	}
 	
 	public boolean solve() {
-		// Place candidates
 		placeCandidates.place();
 		
 		String lastStep = "Init";
