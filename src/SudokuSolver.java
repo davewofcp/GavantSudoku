@@ -18,17 +18,11 @@ public class SudokuSolver {
 		}
 		
 		File file = new File(filename);
-		String ext = null;
-		try {
-			ext = Files.probeContentType(file.toPath());
-		} catch (IOException e) {
-			System.out.println("There was a problem reading that file:");
-			System.out.println(e.getMessage());
-			System.exit(0);
-		}
+		int extPos = filename.lastIndexOf('.');
+		if (extPos == -1) extPos = filename.length();
 
-		String outputFile = filename.substring(0, filename.length() - (ext.length() + 1)) + ".sln.txt";
-		String partialOutputFile = filename.substring(0, filename.length() - (ext.length() + 1)) + ".prt.txt";
+		String outputFile = filename.substring(0, extPos) + ".sln.txt";
+		String partialOutputFile = filename.substring(0, extPos) + ".prt.txt";
 
 		Grid grid = new Grid();
 		try {
