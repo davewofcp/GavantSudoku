@@ -9,6 +9,8 @@ public abstract class AbstractStep {
 	public abstract int perform();
 	public abstract String getName();
 	
+	public AbstractStep() {}
+	
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
